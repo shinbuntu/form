@@ -81,7 +81,7 @@ class Champ
     }
 
     /**
-     * Renvois le nom de l'attribut GET / POST ou COOKIE du champ
+     * Renvoie le nom de l'attribut GET / POST ou COOKIE du champ
      *
      * @return string
      */
@@ -95,7 +95,7 @@ class Champ
     }
 
     /**
-     * Renvois le nom de l'attribut de sortie
+     * Renvoie le nom de l'attribut de sortie
      *
      * @return string
      */
@@ -109,7 +109,10 @@ class Champ
     }
 
     /**
-     * Renvois le message d'erreur à afficher si le champ n'est pas correcte
+     * Renvoie le message d'erreur à afficher si le champ n'est pas correcte.
+     *
+     * Le message peut être configuré via l'option __erreur__.
+     * Par défaut le message est le nom du champ
      *
      * @return string
      */
@@ -141,7 +144,7 @@ class Champ
     }
 
     /**
-     * Renvois le nom de la classe à utiliser comme exception
+     * Renvoie le nom de la classe à utiliser comme exception
      *
      * @return string
      * @throws Exception si aucune exception n'est configurée
@@ -170,7 +173,7 @@ class Champ
     }
 
     /**
-     * Renvois les noms des testes à effectuer sur le champ
+     * Renvoie les noms des testes à effectuer sur le champ
      *
      * @return array
      */

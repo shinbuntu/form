@@ -19,6 +19,11 @@ use Sowork\Formulaire\Champ as TestClass;
  */
 class Champ extends atoum
 {
+    /**
+     * Renvoie un champ type
+     *
+     * @return TestClass
+     */
     protected function getChampTest()
     {
         $foo = new TestClass('id');
@@ -44,6 +49,11 @@ class Champ extends atoum
         ;
     }
 
+    /**
+     * Gestion des règles
+     *
+     * @return void
+     */
     public function testSetRule()
     {
         $this
@@ -72,6 +82,11 @@ class Champ extends atoum
         ;
     }
 
+    /**
+     * Contrôle du choix du nom d'entrée
+     *
+     * @return void
+     */
     public function testGetTargetName()
     {
         $this
@@ -87,6 +102,11 @@ class Champ extends atoum
         ;
     }
 
+    /**
+     * Contrôle du choix nom de sortie
+     *
+     * @return void
+     */
     public function testGetFinalName()
     {
         $this
@@ -99,6 +119,11 @@ class Champ extends atoum
         ;
     }
 
+    /**
+     * Contrôle d'indication obligatoire
+     *
+     * @return void
+     */
     public function testIsRequired()
     {
         $this
@@ -108,9 +133,17 @@ class Champ extends atoum
             ->if($field->setRule('obligatoire', false))
             ->boolean($field->isRequired())
                 ->isFalse()
+            ->if($field->rmRule('obligatoire'))
+            ->boolean($field->isRequired())
+                ->isFalse()
         ;
     }
 
+    /**
+     * Contrôle de la liste des tests
+     *
+     * @return void
+     */
     public function testGetTests()
     {
         $this
@@ -120,6 +153,58 @@ class Champ extends atoum
             ->if($field->setRule('test', ['isMail', 'notEmpty']))
             ->array($field->getTests())
                 ->isEqualTo(['isMail', 'notEmpty'])
+            ->if($field->rmRule('test'))
+            ->array($field->getTests())
+                ->isEqualTo([])
+        ;
+    }
+
+    /**
+     * Contrôle gestion des exceptions personalisées
+     *
+     * @return void
+     */
+    public function testPersonalException()
+    {
+        $this
+            ->if($field = $this->getChampTest())
+            ->boolean($field->hasPersonalException())
+                ->isFalse()
+            ->exception(function () use ($field) {
+                $field->getPersonalException();
+            })
+                ->hasMessage('Aucune class exception de configurée pour ce champ')
+                ->isInstanceOf('\Slrfw\Exception\Lib')
+            ->if($field->setRule('exception', ''))
+            ->boolean($field->hasPersonalException())
+                ->isFalse()
+            ->exception(function () use ($field) {
+                $field->getPersonalException();
+            })
+                ->hasMessage('Aucune class exception de configurée pour ce champ')
+                ->isInstanceOf('\Slrfw\Exception\Lib')
+            ->if($field->setRule('exception', 'Sowork\\Toto'))
+            ->boolean($field->hasPersonalException())
+                ->isTrue()
+            ->string($field->getPersonalException())
+                ->isEqualTo('Sowork\\Toto')
+        ;
+    }
+
+    /**
+     * Contrôle des retours erreur
+     *
+     * @return void
+     */
+    public function testGetErrorMessage()
+    {
+        $this
+            ->if($field = $this->getChampTest())
+            ->string($field->getErrorMessage())
+                ->isEqualTo('id')
+            ->if($field->setRule('erreur', 'Veuillez choisir un produit.'))
+            ->string($field->getErrorMessage())
+                ->isEqualTo('Veuillez choisir un produit.')
         ;
     }
 }
