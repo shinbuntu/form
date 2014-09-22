@@ -29,7 +29,7 @@ class IsInt extends atoum
         $this
             ->boolean(TestClass::validate(5))
                 ->isTrue()
-            ->boolean(TestClass::validate(+15))
+            ->boolean(TestClass::validate(15))
                 ->isTrue()
             ->boolean(TestClass::validate(-5365))
                 ->isTrue()
