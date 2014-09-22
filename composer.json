@@ -10,6 +10,9 @@
   "description": "",
   "keywords": [""],
   "license": "CC by-nc",
+  "require-dev": {
+    "atoum/atoum": "dev-master"
+  },
   "require": {
     "php": ">=5.5.0",
     "sowork/slrfw": "dev-feature/formulaire"
