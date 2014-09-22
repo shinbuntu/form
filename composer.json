@@ -1,0 +1,20 @@
+{
+  "name": "sowork/formulaire",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@git.solire.fr:framework/slrfw.git"
+    }
+  ],
+  "type": "library",
+  "description": "",
+  "keywords": [""],
+  "license": "CC by-nc",
+  "require": {
+    "php": ">=5.5.0",
+    "sowork/slrfw": "dev-feature/formulaire"
+  },
+  "autoload": {
+    "psr-4": { "Sowork\\Formulaire\\": "" }
+  }
+}
