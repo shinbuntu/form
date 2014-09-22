@@ -49,18 +49,11 @@ class Formulaire
     protected $plugins;
 
     /**
-     * tableau des paramètres du formulaire et de leurs options.
-     *
-     * @var array
-     */
-    protected $_architecture;
-
-    /**
      * valeur --config dans le fichier de configuration du formulaire
      *
      * @var array
      */
-    protected $_config;
+    protected $config;
 
     /**
      * Données du formulaire
@@ -68,13 +61,6 @@ class Formulaire
      * @var array
      */
     protected $data;
-
-    /**
-     * toutes les données
-     *
-     * @var array
-     */
-    protected $_fullData;
 
     /**
      * Nom du champ en cours d'annalyse
@@ -93,71 +79,7 @@ class Formulaire
     /**
      * Charge un nouveau formulaire
      *
-     * Pour comprendre la configuration voici un exmple de .ini
-     * ;; Configuration générale du formulaire
-     * [__config]
-     * ;; Option pour prendre en compte le préfixage de tous les champs du formulaire
-     * ;; Chaque [nom] (ou designe) sera préfixé par cette chaine
-     * prefix = C
-     *
-     * ;; chaine d'ordre d'utilisation des variables $_GET $_POST $_COOKIE
-     * ;; définie l'ordre dans lequel ces tableaux sont passés dans la fonction merge
-     * ;; exemple : gpc mettera les cookie prioritaires sur les posts qui seront
-     * ;; prioritaires sur les get
-     * ordre = p
-     *
-     * ;; Exception utilisée, faute de précision au niveau du champ pour ce formulaire.
-     * exception = UserException
-     *
-     * ;; Fonction appellée lors d'une erreur
-     * appelFonction = "CompteController::erreurInscription"
-     *
-     * ;; Les champs sont à parametrer de cette façon :
-     * ;; Nom de la variable
-     * [_exemple]
-     * ;; Nom des tests (voir param.php pour les connaitre) dans une chaine
-     * ;; séparés par |
-     * test = ""
-     *
-     * ;; Variable obligatoire ou non, si elle est obligatoire, en cas d'erreur ou
-     * ;; d'oublie une exceptions era envoyée, sinon elle sera simplement ignorée du
-     * ;; tableau de retour
-     * ;; Valeurs Possible : boolean
-     * obligatoire = true
-     *
-     * ;; Message d'erreur si la variable n'est pas présente ou mal renseignée
-     * ;; Valeurs Possible : string
-     * erreur = "Message d'erreur à renseigner"
-     *
-     * ;; Nom dans le tableau de sortie de la variable
-     * ;; ([nom] sera utilisé par défaut si rien n'est précisé)
-     * ;; Valeurs Possible : string
-     * renomme = "valeur de retour"
-     *
-     * ;; Nom dans le tableau d'entrée de la variable
-     * ;; ([nom] sera utilisé par défaut si rien n'est précisé)
-     * ;; Valeurs Possible : string
-     * designe = "Nom du champ dans le formulaire"
-     *
-     * ;; Exception envoyée si le champ ne répond pas aux critères
-     * ;; Valeurs Possible : string (Nom des objets exception)
-     * exception = "Exception"
-     *
-     * ;; Si le champ est validé, il passe le ou les champs désignées en obligatoire
-     * ;; Les autres champs doivent obligatoirement être après dans la liste
-     * ;; de contrôle.
-     * ;; Valeurs Possible : string (nom du ou des champs séparés par |)
-     * force = "code"
-     *
-     * ;; Nom du champ dans le tableau de sortie (soit [nom] ou renomme) auquel le
-     * ;; champ doit être égal.
-     * ;; Valeurs Possible : string (nom du champs)
-     * egal = "code"
-     *
-     * @param array|string $iniPath  Array contenant l'architecture ou le chemin du .ini
-     * @param boolean      $complete Si le chemin est absolu
-     *
-     * @config main [dirs] "formulaire" Chemin du dossier des .ini d'architecture
+     * @param Slrfw\ConfigInterface $config Configuration du Formulaire
      */
     public function __construct($config)
     {
@@ -179,75 +101,7 @@ class Formulaire
     }
 
     /**
-     * Parcour l'architecture pour y trouver la configuration générale
-     * et sortir le cas d'exemple
-     *
-     * @return self
-     */
-    protected function parseArchi()
-    {
-        if (isset($this->_architecture[\Slrfw\Config::KEY_CONF])) {
-            $this->_config = $this->_architecture[\Slrfw\Config::KEY_CONF];
-            unset($this->_architecture[\Slrfw\Config::KEY_CONF]);
-        }
-
-        if (isset($this->_config['ordre'])) {
-            $this->_ordre = $this->_config['ordre'];
-        }
-
-        /** Récupération des plugin **/
-        if (isset($this->_config['plugins'])) {
-            $this->plugins = explode('|', $this->_config['plugins']);
-        }
-
-        /* = Suppression d'_exemple
-        `------------------------------------------------- */
-        if (isset($this->_architecture['_exemple'])) {
-            unset($this->_architecture['_exemple']);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Supprime une option de l'architecture
-     *
-     * Utile si l'on veut se servir que partiellement d'un .ini par exemple
-     *
-     * @param string $name Nom du champ à oublier
-     *
-     * @return boolean Vrai si l'élément était présent
-     */
-    public function archiUnset($name)
-    {
-        if (!isset($this->_architecture[$name])) {
-            return false;
-        }
-
-        unset($this->_architecture[$name]);
-
-        return true;
-    }
-
-    /**
-     * Edition de la configuration du formulaire
-     *
-     * @param array   $newConfig Tableau associatif de la nouvelle configuration
-     * @param boolean $replace   Si vrais, la nouvelle configuration remplace l'ancienne,
-     * sinon il y a un merge des deux tableaux
-     *
-     * @return void
-     */
-    public function alterConfig(array $newConfig, $replace = false)
-    {
-        if ($replace) {
-            $this->_config = $newConfig;
-        } else {
-            $this->_config = array_merge($this->_config, $newConfig);
-        }
-    }
-
-    /**
+     * Chargement du champ à étudier
      *
      * @param string      $name  Nom du champ
      * @param array|Champ $rules Données du champ
@@ -261,10 +115,6 @@ class Formulaire
         }
 
         $champ = new Champ($name);
-
-        if (!is_array($rules)) {
-            $rules = explode('|', $rules);
-        }
 
         foreach ($rules as $key => $value) {
             $champ->setRule($key, $value);
@@ -332,9 +182,7 @@ class Formulaire
             | obligatoire, sinon, on l'ignore simplement.
             `---------------------------------------- */
             if (!$temp->tests($controls)) {
-                if ($champ->isRequired() === true) {
-                    $this->throwError($champ);
-                }
+                $this->markError($champ, false);
 
                 continue;
             }
@@ -398,19 +246,18 @@ class Formulaire
     }
 
     /**
-     * Envois l'exception de l'erreur
+     * Envoie l'exception de l'erreur.
      *
-     * Le type d'exception envoyé peut être paramétré à deux endroits, (voir le
-     * fichier de configuration) au niveau du champ, ou au niveau du formulaire.
-     * <br/>Par défaut une {@link Exception\User} est envoyée.
+     * Le type d'exception envoyé peut être paramétré à deux endroits,
+     * au niveau du champ (option _exception_), ou au niveau du de la configuration
+     * globale.
+     * Par défaut une {@link Slrfw\Exception\Lib} est envoyée.
      *
-     * @param array $regles Tableau associatif de règles pour la gestion d'erreurs
+     * @param Champ $field Champ responçable de l'erreur
      *
      * @return void
-     * @throws mixed
-     * @throws Exception\User Si il y a une erreur dans le formulaire
-     *
-     * @todo faire un tutorial expliquant le paramétrage des champs d'un formulaire
+     * @throws mixed         En cas d'erreur sur un champ
+     * @throws Exception\Lib Si il y a une erreur dans le formulaire
      */
     protected function throwError(Champ $field)
     {
@@ -484,7 +331,7 @@ class Formulaire
     /**
      * Renvois le paramètre du nom $key sous la forme d'un objet Param
      *
-     * @param string $key Nom du paramètre
+     * @param Champ $field Champ pour lequel récupérer les données
      *
      * @return Param|null
      */
@@ -496,16 +343,27 @@ class Formulaire
             return new Param($this->fullData[$key]);
         }
 
-        $this->markError($field);
+        return $this->markError($field);
     }
 
-    protected function markError(Champ $field)
+    /**
+     * Marque le champ en erreur
+     *
+     * @param Champ   $field Champ responçable de l'erreur
+     * @param boolean $throw Lancer une exception si champ ignoré oui/non
+     *
+     * @return void
+     * @throws Internal si l'erreur ne doit pas être marqué
+     */
+    protected function markError(Champ $field, $throw = true)
     {
         if ($field->isRequired() === true) {
-            $this->throwError($field);
+            return $this->throwError($field);
         }
 
-        throw new Internal('Ignore field');
+        if ($throw === true) {
+            throw new Internal('Ignore field');
+        }
     }
 
     /**
@@ -558,4 +416,3 @@ class Formulaire
         return false;
     }
 }
-
