@@ -66,6 +66,8 @@ class IsInt extends atoum
                 ->isFalse()
             ->boolean(TestClass::validate(0, '>=0'))
                 ->isTrue()
+            ->boolean(TestClass::validate(0, '<=0'))
+                ->isTrue()
             ->boolean(TestClass::validate(10, '>=0'))
                 ->isTrue()
             ->boolean(TestClass::validate(10, '>=0&<=20'))
