@@ -3,20 +3,21 @@
  * Contrôle de variables
  *
  * @author  Adrien <aimbert@solire.fr>
- * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
+ * @license MIT http://mit-license.org/
  */
 
 namespace Solire\Form\Process;
 
-use Solire\Form\ParamInterface;
+use Solire\Form\ValidateInterface;
+use Solire\Form\SanitizeInterface;
 
 /**
  * Contrôle de variables
  *
  * @author  Adrien <aimbert@solire.fr>
- * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
+ * @license MIT http://mit-license.org/
  */
-class VarFloat implements ParamInterface
+class VarFloat implements ValidateInterface, SanitizeInterface
 {
     /**
      * Test si la valeur est un nombre
@@ -33,5 +34,22 @@ class VarFloat implements ParamInterface
         }
 
         return true;
+    }
+
+    /**
+     * Nettoie la variable pour avoir un float
+     *
+     * @param mixed $data  Valeur à Nettoyer
+     * @param mixed $param Non utilisé
+     *
+     * @return float
+     */
+    public static function sanitize($data, $param = null)
+    {
+        return (float) filter_var(
+            $data,
+            FILTER_SANITIZE_NUMBER_FLOAT,
+            FILTER_FLAG_ALLOW_FRACTION
+        );
     }
 }

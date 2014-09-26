@@ -3,7 +3,7 @@
  * Test class for VarFloat
  *
  * @author  Adrien <aimbert@solire.fr>
- * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
+ * @license MIT http://mit-license.org/
  */
 
 namespace Solire\Form\Process\tests\unit;
@@ -15,7 +15,7 @@ use Solire\Form\Process\VarFloat as TestClass;
  * Test class for VarFloat
  *
  * @author  Adrien <aimbert@solire.fr>
- * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
+ * @license MIT http://mit-license.org/
  */
 class VarFloat extends atoum
 {
@@ -51,6 +51,27 @@ class VarFloat extends atoum
                 ->isTrue()
             ->boolean(TestClass::validate('-564d85'))
                 ->isFalse()
+        ;
+    }
+
+    /**
+     * Contrôle traitements de valeurs simple
+     *
+     * @return void
+     */
+    public function testSanitize()
+    {
+        $this
+            ->float(TestClass::sanitize(5))
+                ->isEqualTo(5.0)
+            ->float(TestClass::sanitize('5'))
+                ->isEqualTo(5.0)
+            ->float(TestClass::sanitize('-5365'))
+                ->isEqualTo(-5365.0)
+            ->float(TestClass::sanitize('-5365'))
+                ->isEqualTo(-5365.0)
+            ->float(TestClass::sanitize(5365.0000000))
+                ->isEqualTo(5365.0)
         ;
     }
 }
