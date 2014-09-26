@@ -3,7 +3,7 @@
  * Interface des plugins formulaire
  *
  * @author  Siwaÿll <sanath.labs@gmail.com>
- * @license
+ * @license MIT http://mit-license.org/
  */
 
 namespace Solire\Form;
@@ -12,14 +12,15 @@ namespace Solire\Form;
  * Interface des plugins formulaire
  *
  * @author  Siwaÿll <sanath.labs@gmail.com>
- * @license
+ * @license MIT http://mit-license.org/
  */
-interface ParamInterface
+interface ValidateInterface
 {
     /**
      * Validation du format d'une donnée
      *
-     * @param array $data Données du formulaire
+     * @param mixed  $data  Données du formulaire
+     * @param string $param Configuration suplémentaire
      *
      * @return void
      * @throws Exception Pour marquer une erreur dans le formulaire
