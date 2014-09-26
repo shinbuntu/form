@@ -10,7 +10,7 @@ namespace Solire\Form;
 
 use Slrfw\Exception\Lib as Exception;
 use Slrfw\Exception\Internal;
-use Solire\Form\Champ;
+use Solire\Form\Field;
 
 /**
  * Contrôle des formulaires
@@ -104,17 +104,17 @@ class Formulaire
      * Chargement du champ à étudier
      *
      * @param string      $name  Nom du champ
-     * @param array|Champ $rules Données du champ
+     * @param array|Field $rules Données du champ
      *
-     * @return \Slrfw\Formulaire\Champ
+     * @return \Slrfw\Formulaire\Field
      */
-    protected function loadChamp($name, $rules)
+    protected function loadField($name, $rules)
     {
-        if (is_object($rules) && $rules instanceof Champ) {
+        if (is_object($rules) && $rules instanceof Field) {
             return $rules;
         }
 
-        $champ = new Champ($name);
+        $champ = new Field($name);
 
         foreach ($rules as $key => $value) {
             $champ->setRule($key, $value);
@@ -126,11 +126,11 @@ class Formulaire
     /**
      * Renvois le nom du champ à récupérer dans les variables http
      *
-     * @param Champ $field Champ en cours de traitement
+     * @param Field $field Champ en cours de traitement
      *
      * @return string
      */
-    protected function getFieldName(Champ $field)
+    protected function getFieldName(Field $field)
     {
         $target = $field->getTargetName();
 
@@ -167,7 +167,7 @@ class Formulaire
           ------------------------------- */
         reset($configuration);
         while (list($name, $regles) = each($configuration)) {
-            $champ = $this->loadChamp($name, $regles);
+            $champ = $this->loadField($name, $regles);
 
             try {
                 $temp = $this->extractFromHttpVars($champ);
@@ -238,13 +238,13 @@ class Formulaire
      * globale.
      * Par défaut une {@link Slrfw\Exception\Lib} est envoyée.
      *
-     * @param Champ $field Champ responçable de l'erreur
+     * @param Field $field Champ responçable de l'erreur
      *
      * @return void
      * @throws mixed         En cas d'erreur sur un champ
      * @throws Exception\Lib Si il y a une erreur dans le formulaire
      */
-    protected function throwError(Champ $field)
+    protected function throwError(Field $field)
     {
         $message = $field->getErrorMessage();
 
@@ -316,11 +316,11 @@ class Formulaire
     /**
      * Renvoie le paramètre du nom $key sous la forme d'un objet Param
      *
-     * @param Champ $field Champ pour lequel récupérer les données
+     * @param Field $field Champ pour lequel récupérer les données
      *
      * @return Param|null
      */
-    protected function extractFromHttpVars(Champ $field)
+    protected function extractFromHttpVars(Field $field)
     {
         $key = $this->getFieldName($field);
 
@@ -334,13 +334,13 @@ class Formulaire
     /**
      * Marque le champ en erreur
      *
-     * @param Champ   $field Champ responçable de l'erreur
+     * @param Field   $field Champ responçable de l'erreur
      * @param boolean $throw Lancer une exception si champ ignoré oui/non
      *
      * @return void
      * @throws Internal si l'erreur ne doit pas être marqué
      */
-    protected function markError(Champ $field, $throw = true)
+    protected function markError(Field $field, $throw = true)
     {
         if ($field->isRequired() === true) {
             return $this->throwError($field);

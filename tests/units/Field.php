@@ -9,7 +9,7 @@
 namespace Solire\Form\tests\unit;
 
 use atoum;
-use Solire\Form\Champ as TestClass;
+use Solire\Form\Field as TestClass;
 
 /**
  * Test class for formulaire.
@@ -17,14 +17,14 @@ use Solire\Form\Champ as TestClass;
  * @author  Adrien <aimbert@solire.fr>
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
-class Champ extends atoum
+class Field extends atoum
 {
     /**
      * Renvoie un champ type
      *
      * @return TestClass
      */
-    protected function getChampTest()
+    protected function getFieldTest()
     {
         $foo = new TestClass('id');
         $foo
@@ -89,7 +89,7 @@ class Champ extends atoum
     public function testGetTargetName()
     {
         $this
-            ->if($field = $this->getChampTest())
+            ->if($field = $this->getFieldTest())
             ->string($field->getTargetName())
                 ->isEqualTo('id-table')
             ->if($field->rmRule('designe'))
@@ -109,7 +109,7 @@ class Champ extends atoum
     public function testGetFinalName()
     {
         $this
-            ->if($field = $this->getChampTest())
+            ->if($field = $this->getFieldTest())
             ->string($field->getFinalName())
                 ->isEqualTo('id')
             ->if($field->setRule('renomme', 'tata'))
@@ -126,7 +126,7 @@ class Champ extends atoum
     public function testIsRequired()
     {
         $this
-            ->if($field = $this->getChampTest())
+            ->if($field = $this->getFieldTest())
             ->boolean($field->isRequired())
                 ->isTrue()
             ->if($field->setRule('obligatoire', false))
@@ -146,7 +146,7 @@ class Champ extends atoum
     public function testGetTests()
     {
         $this
-            ->if($field = $this->getChampTest())
+            ->if($field = $this->getFieldTest())
             ->array($field->getTests())
                 ->isEqualTo(['VarInt', 'notEmpty'])
             ->if($field->setRule('test', ['isMail', 'notEmpty']))
@@ -166,7 +166,7 @@ class Champ extends atoum
     public function testPersonalException()
     {
         $this
-            ->if($field = $this->getChampTest())
+            ->if($field = $this->getFieldTest())
             ->boolean($field->hasPersonalException())
                 ->isFalse()
             ->exception(function () use ($field) {
@@ -198,7 +198,7 @@ class Champ extends atoum
     public function testGetErrorMessage()
     {
         $this
-            ->if($field = $this->getChampTest())
+            ->if($field = $this->getFieldTest())
             ->string($field->getErrorMessage())
                 ->isEqualTo('id')
             ->if($field->setRule('erreur', 'Veuillez choisir un produit.'))

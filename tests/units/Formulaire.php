@@ -197,7 +197,7 @@ class Formulaire extends atoum
     {
         $this
             ->if($conf = $this->getConfigTest())
-            ->and($champ = new \Solire\Form\Champ('nom'))
+            ->and($champ = new \Solire\Form\Field('nom'))
             ->if($champ->setRule('renomme', 'toto'))
             ->and($conf->set($champ, 'nom'))
             ->and($form = new TestClass($conf))
