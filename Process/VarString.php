@@ -8,7 +8,7 @@
 
 namespace Solire\Form\Process;
 
-use Solire\Form\ParamInterface;
+use Solire\Form\ValidateInterface;
 
 /**
  * Contrôle de variables
@@ -16,7 +16,7 @@ use Solire\Form\ParamInterface;
  * @author  Adrien <aimbert@solire.fr>
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
-class VarString implements ParamInterface
+class VarString implements ValidateInterface
 {
     /**
      * Test si le parametre est une chaine
