@@ -10,7 +10,7 @@ namespace Solire\Form;
 
 use Slrfw\Exception\Lib as Exception;
 use Slrfw\Exception\Internal;
-use Solire\Form\Field;
+
 
 /**
  * Contrôle des formulaires
@@ -314,18 +314,18 @@ class Formulaire
     }
 
     /**
-     * Renvoie le paramètre du nom $key sous la forme d'un objet Param
+     * Renvoie le paramètre du nom $key sous la forme d'un objet Tester
      *
      * @param Field $field Champ pour lequel récupérer les données
      *
-     * @return Param|null
+     * @return Tester|null
      */
     protected function extractFromHttpVars(Field $field)
     {
         $key = $this->getFieldName($field);
 
         if (isset($this->fullData[$key])) {
-            return new Param($this->fullData[$key]);
+            return new Tester($this->fullData[$key]);
         }
 
         return $this->markError($field);

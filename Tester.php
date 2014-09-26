@@ -16,7 +16,7 @@ use Slrfw\Exception\Lib as Exception;
  * @author  Adrien <aimbert@solire.fr>
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
-class Param
+class Tester
 {
     /**
      * Variable
@@ -54,17 +54,22 @@ class Param
      */
     protected function getClassName($name, $tool)
     {
-        if (strpos('\\', $name) !== false) {
-            return $name;
+        $className = __NAMESPACE__ . '\\Process\\' . ucfirst($name);
+        if (class_exists($className)) {
+            return $this->validateProcess($className, $tool);
         }
 
-        return __NAMESPACE__ . '\\' . $tool . '\\' . ucfirst($name);
+        if (class_exists($name)) {
+            return $this->validateProcess($name, $tool);
+        }
+
+        throw new Exception('Aucune classe de test pour __' . $name . '__');
     }
 
-    protected function validatePlugin($className)
+    protected function validateProcess($className, $tool)
     {
-        if (!in_array(__NAMESPACE__ . '\ParamInterface', class_implements($config))) {
-            throw new Exception('_' . $className . '_ n\'implemente pas Slrfw\Formulaire\ParamInterface');
+        if (!in_array(__NAMESPACE__ . '\\' . $tool . 'Interface', class_implements($className))) {
+            throw new Exception('_' . $className . '_ n\'implemente pas ' . $tool . 'Interface');
         }
 
         return $className;
@@ -96,7 +101,7 @@ class Param
     public function validate($option)
     {
         list($option, $param) = $this->extractOptions($option);
-        $className = $this->getClassName($option, 'Process');
+        $className = $this->getClassName($option, 'Validate');
         return $className::validate($this->foo, $param);
     }
 
@@ -111,7 +116,7 @@ class Param
     {
         list($option, $param) = $this->extractOptions($option);
         $className = $this->getClassName($option, 'Sanitize');
-        return $className::validate($this->foo, $param);
+        return $className::sanitize($this->foo, $param);
     }
 
     /**
