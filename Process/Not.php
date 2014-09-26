@@ -6,9 +6,9 @@
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
 
-namespace Sowork\Formulaire\Validate;
+namespace Solire\Form\Process;
 
-use Sowork\Formulaire\ParamInterface;
+use Solire\Form\ParamInterface;
 
 /**
  * Contrôle de variables
@@ -16,21 +16,22 @@ use Sowork\Formulaire\ParamInterface;
  * @author  Adrien <aimbert@solire.fr>
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
-class IsPhone implements ParamInterface
+class Not implements ParamInterface
 {
     /**
-     * Test si le parametre est un numéro de téléphone
+     * Test si le parametre n'est pas vide.
      *
      * @param mixed $data  Valeur à tester
-     * @param mixed $param Non utilisé
+     * @param mixed $param Valeur de blocage
      *
      * @return boolean
      */
     public static function validate($data, $param)
     {
-        if (preg_match('#^0[1-9]([-. ]?[0-9]{2}){4}$#', $data)) {
-            return true;
+        if ($data == $param) {
+            return false;
         }
-        return false;
+
+        return true;
     }
 }

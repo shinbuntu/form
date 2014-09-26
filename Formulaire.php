@@ -6,11 +6,11 @@
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
 
-namespace Sowork\Formulaire;
+namespace Solire\Form;
 
 use Slrfw\Exception\Lib as Exception;
 use Slrfw\Exception\Internal;
-use \Sowork\Formulaire\Champ;
+use Solire\Form\Champ;
 
 /**
  * Contrôle des formulaires
@@ -231,21 +231,6 @@ class Formulaire
     }
 
     /**
-     * Renvois les données collectées par le formulaire sous la forme d'un tableau
-     *
-     * @return array Tableau non associatif des valeurs
-     */
-    public function getList()
-    {
-        $list = array();
-        foreach ($this->data as $value) {
-            $list[] = $value;
-        }
-
-        return $list;
-    }
-
-    /**
      * Envoie l'exception de l'erreur.
      *
      * Le type d'exception envoyé peut être paramétré à deux endroits,
@@ -329,7 +314,7 @@ class Formulaire
     }
 
     /**
-     * Renvois le paramètre du nom $key sous la forme d'un objet Param
+     * Renvoie le paramètre du nom $key sous la forme d'un objet Param
      *
      * @param Champ $field Champ pour lequel récupérer les données
      *
@@ -364,6 +349,21 @@ class Formulaire
         if ($throw === true) {
             throw new Internal('Ignore field');
         }
+    }
+
+    /**
+     * Renvois les données collectées par le formulaire sous la forme d'un tableau
+     *
+     * @return array Tableau non associatif des valeurs
+     */
+    public function getList()
+    {
+        $list = array();
+        foreach ($this->data as $value) {
+            $list[] = $value;
+        }
+
+        return $list;
     }
 
     /**

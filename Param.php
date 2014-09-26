@@ -6,7 +6,7 @@
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
 
-namespace Sowork\Formulaire;
+namespace Solire\Form;
 
 use Slrfw\Exception\Lib as Exception;
 
@@ -46,7 +46,7 @@ class Param
     }
 
     /**
-     * Renvois le nom de la classe de test
+     * Renvoie le nom de la classe de test
      *
      * @param string $name Nom du test
      *
@@ -96,7 +96,7 @@ class Param
     public function validate($option)
     {
         list($option, $param) = $this->extractOptions($option);
-        $className = $this->getClassName($option, 'Validate');
+        $className = $this->getClassName($option, 'Process');
         return $className::validate($this->foo, $param);
     }
 
@@ -123,7 +123,7 @@ class Param
      */
     public function tests($options)
     {
-        if (!is_array($options) || empty ($options)) {
+        if (!is_array($options)) {
             throw new Exception('$options doit être un tableau');
         }
 

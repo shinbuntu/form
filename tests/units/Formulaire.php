@@ -6,11 +6,11 @@
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
 
-namespace tests\unit\Sowork\Formulaire;
+namespace Solire\Form\tests\unit;
 
 use atoum;
-use Sowork\Formulaire\Formulaire as TestClass;
-use Sowork\Formulaire\FastConfig as FormulaireFastConfig;
+use Solire\Form\Formulaire as TestClass;
+use Solire\Form\FastConfig as FormulaireFastConfig;
 
 /**
  * Test class for formulaire.
@@ -32,11 +32,11 @@ class Formulaire extends atoum
         $conf
             ->create('id')
                 ->setRule('obligatoire', false)
-                ->setRule('test', 'notEmpty|isInt|isPositive')
+                ->setRule('test', 'notEmpty|VarInt:>=0')
                 ->setRule('erreur', 'Erreur interne')
             ->create('nom')
                 ->setRule('obligatoire', true)
-                ->setRule('test', ['isString', 'length:>=2'])
+                ->setRule('test', ['VarString', 'length:>=2'])
                 ->setRule('erreur', 'Erreur saisie')
         ;
 
@@ -63,7 +63,6 @@ class Formulaire extends atoum
                 ->hasMessage('Configuration non valide')
                 ->isInstanceOf('\Slrfw\Exception\Lib')
             ->object(new TestClass($this->getConfigTest()))
-                ->isInstanceOf('\Sowork\Formulaire\Formulaire')
         ;
     }
 
@@ -198,7 +197,7 @@ class Formulaire extends atoum
     {
         $this
             ->if($conf = $this->getConfigTest())
-            ->and($champ = new \Sowork\Formulaire\Champ('nom'))
+            ->and($champ = new \Solire\Form\Champ('nom'))
             ->if($champ->setRule('renomme', 'toto'))
             ->and($conf->set($champ, 'nom'))
             ->and($form = new TestClass($conf))

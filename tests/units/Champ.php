@@ -6,10 +6,10 @@
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
 
-namespace tests\unit\Sowork\Formulaire;
+namespace Solire\Form\tests\unit;
 
 use atoum;
-use Sowork\Formulaire\Champ as TestClass;
+use Solire\Form\Champ as TestClass;
 
 /**
  * Test class for formulaire.
@@ -28,7 +28,7 @@ class Champ extends atoum
     {
         $foo = new TestClass('id');
         $foo
-            ->setRule('test', 'isInt|notEmpty')
+            ->setRule('test', 'VarInt|notEmpty')
             ->setRule('obligatoire', true)
             ->setRule('designe', 'id-table')
         ;
@@ -45,7 +45,6 @@ class Champ extends atoum
     {
         $this
             ->object(new TestClass('id'))
-                ->isInstanceOf('\Sowork\Formulaire\Champ')
         ;
     }
 
@@ -58,7 +57,7 @@ class Champ extends atoum
     {
         $this
             ->if($conf = new TestClass('id'))
-            ->object($conf->setRule('test', 'isInt|notEmpty'))
+            ->object($conf->setRule('test', 'VarInt|notEmpty'))
                 ->isIdenticalTo($conf)
             ->object($conf->setRule('obligatoire', true))
                 ->isIdenticalTo($conf)
@@ -149,7 +148,7 @@ class Champ extends atoum
         $this
             ->if($field = $this->getChampTest())
             ->array($field->getTests())
-                ->isEqualTo(['isInt', 'notEmpty'])
+                ->isEqualTo(['VarInt', 'notEmpty'])
             ->if($field->setRule('test', ['isMail', 'notEmpty']))
             ->array($field->getTests())
                 ->isEqualTo(['isMail', 'notEmpty'])

@@ -9,7 +9,7 @@
 namespace Solire\Form\Process\tests\unit;
 
 use atoum;
-use Solire\Form\Process\VarMail as TestecClass;
+use Solire\Form\Process\VarMail as TestClass;
 
 /**
  * Test class for IsMail.
@@ -27,15 +27,15 @@ class VarMail extends atoum
     public function testCtrl()
     {
         $this
-            ->boolean(TestecClass::validate('aimbert@solire.fr'))
+            ->boolean(TestClass::validate('aimbert@solire.fr'))
                 ->isTrue()
-            ->boolean(TestecClass::validate('toto+test@free.fr'))
+            ->boolean(TestClass::validate('toto+test@free.fr'))
                 ->isTrue()
-            ->boolean(TestecClass::validate('53-zert@club-marine53.com'))
+            ->boolean(TestClass::validate('53-zert@club-marine53.com'))
                 ->isTrue()
-            ->boolean(TestecClass::validate('aimbert@@solire.fr'))
+            ->boolean(TestClass::validate('aimbert@@solire.fr'))
                 ->isFalse()
-            ->boolean(TestecClass::validate(''))
+            ->boolean(TestClass::validate(''))
                 ->isFalse()
         ;
     }

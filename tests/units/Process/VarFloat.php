@@ -1,23 +1,23 @@
 <?php
 /**
- * Test class for IsInt.
+ * Test class for VarFloat
  *
  * @author  Adrien <aimbert@solire.fr>
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
 
-namespace tests\unit\Sowork\Formulaire\Validate;
+namespace Solire\Form\Process\tests\unit;
 
 use atoum;
-use Sowork\Formulaire\Validate\IsInt as TestClass;
+use Solire\Form\Process\VarFloat as TestClass;
 
 /**
- * Test class for IsInt.
+ * Test class for VarFloat
  *
  * @author  Adrien <aimbert@solire.fr>
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
-class IsInt extends atoum
+class VarFloat extends atoum
 {
     /**
      * Contrôle validations de valeurs simple
@@ -42,37 +42,14 @@ class IsInt extends atoum
             ->boolean(TestClass::validate('-65489'))
                 ->isTrue()
             ->boolean(TestClass::validate(0.256))
-                ->isFalse()
+                ->isTrue()
             ->boolean(TestClass::validate('a523'))
                 ->isFalse()
             ->boolean(TestClass::validate('0.6'))
-                ->isFalse()
+                ->isTrue()
             ->boolean(TestClass::validate('-5648.5'))
-                ->isFalse()
+                ->isTrue()
             ->boolean(TestClass::validate('-564d85'))
-                ->isFalse()
-        ;
-    }
-
-    /**
-     * Contrôle utilisation de bornes
-     *
-     * @return void
-     */
-    public function testBornes()
-    {
-        $this
-            ->boolean(TestClass::validate(-5, '>=0'))
-                ->isFalse()
-            ->boolean(TestClass::validate(0, '>=0'))
-                ->isTrue()
-            ->boolean(TestClass::validate(0, '<=0'))
-                ->isTrue()
-            ->boolean(TestClass::validate(10, '>=0'))
-                ->isTrue()
-            ->boolean(TestClass::validate(10, '>=0&<=20'))
-                ->isTrue()
-            ->boolean(TestClass::validate(10, '>=0&<=5'))
                 ->isFalse()
         ;
     }

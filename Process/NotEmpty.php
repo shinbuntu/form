@@ -6,9 +6,9 @@
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
 
-namespace Sowork\Formulaire\Validate;
+namespace Solire\Form\Process;
 
-use Sowork\Formulaire\ParamInterface;
+use Solire\Form\ParamInterface;
 
 /**
  * Contrôle de variables
@@ -16,22 +16,21 @@ use Sowork\Formulaire\ParamInterface;
  * @author  Adrien <aimbert@solire.fr>
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
-class IsFloat implements ParamInterface
+class NotEmpty implements ParamInterface
 {
     /**
-     * Test si le parametre est un boolean
+     * Test si le parametre n'est pas vide.
      *
      * @param mixed $data  Valeur à tester
      * @param mixed $param Non utilisé
      *
      * @return boolean
      */
-    public static function validate($data, $param)
+    public static function validate($data, $param = null)
     {
-        if (filter_var($data, FILTER_VALIDATE_FLOAT) === false) {
+        if (empty($data)) {
             return false;
         }
-
         return true;
     }
 }

@@ -6,7 +6,7 @@
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
 
-namespace Sowork\Formulaire;
+namespace Solire\Form;
 
 /**
  * Chargement de la session client

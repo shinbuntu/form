@@ -6,9 +6,9 @@
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
 
-namespace Sowork\Formulaire\Validate;
+namespace Solire\Form\Process;
 
-use Sowork\Formulaire\ParamInterface;
+use Solire\Form\ParamInterface;
 
 /**
  * Contrôle de variables
@@ -16,10 +16,10 @@ use Sowork\Formulaire\ParamInterface;
  * @author  Adrien <aimbert@solire.fr>
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
-class IsBoolean implements ParamInterface
+class VarArray implements ParamInterface
 {
     /**
-     * Test si le parametre est un boolean
+     * Test si le parametre est un tableau
      *
      * @param mixed $data  Valeur à tester
      * @param mixed $param Non utilisé
@@ -28,11 +28,9 @@ class IsBoolean implements ParamInterface
      */
     public static function validate($data, $param = null)
     {
-        $bool = filter_var($data, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-        if ($bool === true || $bool === false) {
+        if (is_array($data)) {
             return true;
         }
-
         return false;
     }
 }

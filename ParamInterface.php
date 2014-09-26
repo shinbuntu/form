@@ -3,10 +3,10 @@
  * Interface des plugins formulaire
  *
  * @author  Siwaÿll <sanath.labs@gmail.com>
- * @license 
+ * @license
  */
 
-namespace Sowork\Formulaire;
+namespace Solire\Form;
 
 /**
  * Interface des plugins formulaire
@@ -17,7 +17,7 @@ namespace Sowork\Formulaire;
 interface ParamInterface
 {
     /**
-     * Traitement sur les données d'un formulaire
+     * Validation du format d'une donnée
      *
      * @param array $data Données du formulaire
      *

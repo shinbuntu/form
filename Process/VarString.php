@@ -6,9 +6,9 @@
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
 
-namespace Sowork\Formulaire\Validate;
+namespace Solire\Form\Process;
 
-use Sowork\Formulaire\ParamInterface;
+use Solire\Form\ParamInterface;
 
 /**
  * Contrôle de variables
@@ -16,10 +16,10 @@ use Sowork\Formulaire\ParamInterface;
  * @author  Adrien <aimbert@solire.fr>
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
-class NotEmpty implements ParamInterface
+class VarString implements ParamInterface
 {
     /**
-     * Test si le parametre n'est pas vide.
+     * Test si le parametre est une chaine
      *
      * @param mixed $data  Valeur à tester
      * @param mixed $param Non utilisé
@@ -28,9 +28,9 @@ class NotEmpty implements ParamInterface
      */
     public static function validate($data, $param)
     {
-        if (empty($data)) {
-            return false;
+        if ((string) $data === $data) {
+            return true;
         }
-        return true;
+        return false;
     }
 }

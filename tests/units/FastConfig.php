@@ -6,10 +6,10 @@
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
 
-namespace tests\unit\Sowork\Formulaire;
+namespace Solire\Form\tests\unit;
 
 use atoum;
-use Sowork\Formulaire\FastConfig as TestClass;
+use Solire\Form\FastConfig as TestClass;
 
 /**
  * Test class for formulaire.
@@ -28,7 +28,6 @@ class FastConfig extends atoum
     {
         $this
             ->object(new TestClass())
-                ->isInstanceOf('\Sowork\Formulaire\FastConfig')
         ;
     }
 

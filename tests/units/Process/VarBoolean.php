@@ -6,10 +6,10 @@
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
 
-namespace tests\unit\Sowork\Formulaire\Validate;
+namespace Solire\Form\Process\tests\unit;
 
 use atoum;
-use Sowork\Formulaire\Validate\IsBoolean as TestClass;
+use Solire\Form\Process\VarBoolean as TestClass;
 
 /**
  * Test class for IsBoolean.
@@ -17,7 +17,7 @@ use Sowork\Formulaire\Validate\IsBoolean as TestClass;
  * @author  Adrien <aimbert@solire.fr>
  * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
  */
-class IsBoolean extends atoum
+class VarBoolean extends atoum
 {
     /**
      * Contrôle ajout de dossiers dans l'include_path
