@@ -3,7 +3,7 @@
  * Module de gestion de formulaires
  *
  * @author  Adrien <aimbert@solire.fr>
- * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
+ * @license MIT http://mit-license.org/
  */
 
 namespace Solire\Form;
@@ -14,7 +14,7 @@ use Slrfw\Exception\Lib as Exception;
  * Contrôle des formulaires
  *
  * @author  Adrien <aimbert@solire.fr>
- * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
+ * @license MIT http://mit-license.org/
  */
 class Field
 {

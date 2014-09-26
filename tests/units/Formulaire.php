@@ -3,7 +3,7 @@
  * Test class for formulaire.
  *
  * @author  Adrien <aimbert@solire.fr>
- * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
+ * @license MIT http://mit-license.org/
  */
 
 namespace Solire\Form\tests\unit;
@@ -16,7 +16,7 @@ use Solire\Form\FastConfig as FormulaireFastConfig;
  * Test class for formulaire.
  *
  * @author  Adrien <aimbert@solire.fr>
- * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
+ * @license MIT http://mit-license.org/
  */
 class Formulaire extends atoum
 {

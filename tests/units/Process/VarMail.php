@@ -3,7 +3,7 @@
  * Test class for IsMail.
  *
  * @author  Adrien <aimbert@solire.fr>
- * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
+ * @license MIT http://mit-license.org/
  */
 
 namespace Solire\Form\Process\tests\unit;
@@ -15,7 +15,7 @@ use Solire\Form\Process\VarMail as TestClass;
  * Test class for IsMail.
  *
  * @author  Adrien <aimbert@solire.fr>
- * @license CC by-nc http://creativecommons.org/licenses/by-nc/3.0/fr/
+ * @license MIT http://mit-license.org/
  */
 class VarMail extends atoum
 {
