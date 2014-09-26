@@ -2,7 +2,7 @@
 /**
  * Interface des plugins formulaire
  *
- * @author  Siwaÿll <sanath.labs@gmail.com>
+ * @author  Adrien <aimbert@solire.fr>
  * @license MIT http://mit-license.org/
  */
 
@@ -11,7 +11,7 @@ namespace Solire\Form;
 /**
  * Interface des plugins formulaire
  *
- * @author  Siwaÿll <sanath.labs@gmail.com>
+ * @author  Adrien <aimbert@solire.fr>
  * @license MIT http://mit-license.org/
  */
 interface ValidateInterface
