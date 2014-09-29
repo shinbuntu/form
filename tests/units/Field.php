@@ -77,7 +77,7 @@ class Field extends atoum
                 $conf->setRule('maRègleFoireuse', -1);
             })
                 ->hasMessage('maRègleFoireuse n\'est pas une règle formulaire')
-                ->isInstanceOf('\Slrfw\Exception\Lib')
+                ->isInstanceOf('\Solire\Form\Exception')
         ;
     }
 
@@ -173,7 +173,7 @@ class Field extends atoum
                 $field->getPersonalException();
             })
                 ->hasMessage('Aucune class exception de configurée pour ce champ')
-                ->isInstanceOf('\Slrfw\Exception\Lib')
+                ->isInstanceOf('\Solire\Form\Exception')
             ->if($field->setRule('exception', ''))
             ->boolean($field->hasPersonalException())
                 ->isFalse()
@@ -181,7 +181,7 @@ class Field extends atoum
                 $field->getPersonalException();
             })
                 ->hasMessage('Aucune class exception de configurée pour ce champ')
-                ->isInstanceOf('\Slrfw\Exception\Lib')
+                ->isInstanceOf('\Solire\Form\Exception')
             ->if($field->setRule('exception', 'Sowork\\Toto'))
             ->boolean($field->hasPersonalException())
                 ->isTrue()

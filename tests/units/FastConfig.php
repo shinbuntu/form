@@ -117,7 +117,7 @@ class FastConfig extends atoum
                 $conf->setRule('maRègleFoireuse', -1);
             })
                 ->hasMessage('maRègleFoireuse n\'est pas une règle formulaire')
-                ->isInstanceOf('\Slrfw\Exception\Lib')
+                ->isInstanceOf('\Solire\Form\Exception')
         ;
     }
 }

@@ -8,8 +8,6 @@
 
 namespace Solire\Form;
 
-use Slrfw\Exception\Lib as Exception;
-
 /**
  * Contrôle de variables
  *

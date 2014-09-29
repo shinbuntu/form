@@ -9,7 +9,6 @@
 namespace Solire\Form;
 
 use Slrfw\ConfigInterface;
-use Slrfw\Exception\Lib as Exception;
 
 /**
  * Gestionnaire des fichiers de configurations

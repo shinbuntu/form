@@ -1,6 +1,7 @@
 <?php
 /**
- * Chargement de la session client
+ * Enregistrement d'informations suplémentaires pour les exception envoyés par
+ * les contrôles de formulaire
  *
  * @author  Adrien <aimbert@solire.fr>
  * @license MIT http://mit-license.org/
@@ -9,18 +10,25 @@
 namespace Solire\Form;
 
 /**
- * Chargement de la session client
+ * Enregistrement d'informations suplémentaires pour les exception envoyés par
+ * les contrôles de formulaire
  *
  * @author  Adrien <aimbert@solire.fr>
  * @license MIT http://mit-license.org/
  */
 trait ExceptionTrait
 {
+    /**
+     * Nom du champs à cibler
+     *
+     * @var string
+     */
     protected $targetInput = '';
+
     /**
      * Enregistre le nom de l'input qui contien une erreur
      *
-     * @param string|array $inputName nom de l'input fautif
+     * @param string|array $inputName Nom de l'input fautif
      *
      * @return self
      */

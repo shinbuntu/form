@@ -8,8 +8,7 @@
 
 namespace Solire\Form;
 
-use Slrfw\Exception\Lib as Exception;
-use Slrfw\Exception\Internal;
+use \Solire\Form\ExceptionInternal as Internal;
 
 /**
  * Contrôle des formulaires
@@ -147,8 +146,8 @@ class Formulaire
      *
      * @return array tableau des données du formulaire
      *
-     * @throws Exception\Lib  En cas d'erreurs dans la configuration du formulaire
-     * @throws Exception\User Si le formulaire est mal remplis
+     * @throws Exception En cas d'erreurs dans la configuration du formulaire
+     * @throws Exception Si le formulaire est mal remplis
      *
      * @uses Formulaire::catchData()
      * @uses Formulaire::get()
@@ -235,7 +234,7 @@ class Formulaire
      * Le type d'exception envoyé peut être paramétré à deux endroits,
      * au niveau du champ (option _exception_), ou au niveau du de la configuration
      * globale.
-     * Par défaut une {@link Slrfw\Exception\Lib} est envoyée.
+     * Par défaut une {@link Solire\Form\Exception} est envoyée.
      *
      * @param Field $field Champ responçable de l'erreur
      *

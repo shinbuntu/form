@@ -56,12 +56,12 @@ class Formulaire extends atoum
                 $foo = new TestClass(null);
             })
                 ->hasMessage('Configuration non valide')
-                ->isInstanceOf('\Slrfw\Exception\Lib')
+                ->isInstanceOf('\Solire\Form\Exception')
             ->exception(function () {
                 $foo = new TestClass([]);
             })
                 ->hasMessage('Configuration non valide')
-                ->isInstanceOf('\Slrfw\Exception\Lib')
+                ->isInstanceOf('\Solire\Form\Exception')
             ->object(new TestClass($this->getConfigTest()))
         ;
     }
@@ -112,7 +112,7 @@ class Formulaire extends atoum
                 $form->run();
             })
                 ->hasMessage('Erreur saisie')
-                ->isInstanceOf('\Slrfw\Exception\Lib')
+                ->isInstanceOf('\Solire\Form\Exception')
             ->if($conf->set('\Slrfw\Exception\User', 'nom', 'exception'))
             ->exception(function () use ($form) {
                 $form->run();
@@ -226,7 +226,7 @@ class Formulaire extends atoum
                 $form->run();
             })
                 ->hasMessage('Erreur interne')
-                ->isInstanceOf('\Slrfw\Exception\Lib')
+                ->isInstanceOf('\Solire\Form\Exception')
         ;
     }
 }

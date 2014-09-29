@@ -50,19 +50,19 @@ class Tester extends atoum
                 $var->tests(52);
             })
                 ->hasMessage('$options doit être un tableau')
-                ->isInstanceOf('\Slrfw\Exception\Lib')
+                ->isInstanceOf('\Solire\Form\Exception')
             ->boolean($var->tests(['\\Solire\\Form\\Process\\VarInt']))
                 ->isFalse()
             ->exception(function () use ($var) {
                 $var->tests(['\\Solire\\Form\\Process\\PouetPouet']);
             })
                 ->hasMessage('Aucune classe de test pour __\Solire\Form\Process\PouetPouet__')
-                ->isInstanceOf('\Slrfw\Exception\Lib')
+                ->isInstanceOf('\Solire\Form\Exception')
             ->exception(function () use ($var) {
                 $var->tests(['\\Solire\\Form\\Field']);
             })
                 ->hasMessage('_\Solire\Form\Field_ n\'implemente pas ValidateInterface')
-                ->isInstanceOf('\Slrfw\Exception\Lib')
+                ->isInstanceOf('\Solire\Form\Exception')
         ;
     }
 
