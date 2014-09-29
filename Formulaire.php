@@ -11,7 +11,6 @@ namespace Solire\Form;
 use Slrfw\Exception\Lib as Exception;
 use Slrfw\Exception\Internal;
 
-
 /**
  * Contrôle des formulaires
  *

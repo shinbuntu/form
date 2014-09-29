@@ -49,6 +49,7 @@ class Tester
      * Renvoie le nom de la classe de test
      *
      * @param string $name Nom du test
+     * @param string $tool Nom du modèle de script à valider (sanitize, validate...)
      *
      * @return string
      */
@@ -66,6 +67,16 @@ class Tester
         throw new Exception('Aucune classe de test pour __' . $name . '__');
     }
 
+    /**
+     * Contrôle si la classe demandé implémente l'interface du type de script
+     * demandé
+     *
+     * @param string $className Nom de la classe
+     * @param string $tool      Nom du type de script
+     *
+     * @return string
+     * @throws Exception si la classe demandée n'implémente pas l'interface
+     */
     protected function validateProcess($className, $tool)
     {
         if (!in_array(__NAMESPACE__ . '\\' . $tool . 'Interface', class_implements($className))) {
