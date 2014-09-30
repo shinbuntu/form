@@ -159,6 +159,23 @@ class Field extends atoum
     }
 
     /**
+     * Contrôle de la liste des sanitizes
+     *
+     * @return void
+     */
+    public function testGetSanitizes()
+    {
+        $this
+            ->if($field = $this->getFieldTest())
+            ->array($field->getSanitizes())
+                ->isEqualTo([])
+            ->if($field->setRule('sanitize', ['VarInt']))
+            ->array($field->getSanitizes())
+                ->isEqualTo(['VarInt'])
+        ;
+    }
+
+    /**
      * Contrôle gestion des exceptions personalisées
      *
      * @return void

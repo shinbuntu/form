@@ -21,6 +21,7 @@ class Field
      */
     private $rules = [
         'test', 'obligatoire', 'erreur', 'renomme', 'designe', 'exception',
+        'sanitize',
         'force', 'egale'
     ];
 
@@ -171,20 +172,42 @@ class Field
     }
 
     /**
+     * Renvoie un tableau de configuration
+     *
+     * @param string $name Nom du champ
+     *
+     * @return array
+     */
+    protected function getArrayConfOf($name)
+    {
+        if (!isset($this->config[$name])) {
+            return [];
+        }
+
+        if (is_array($this->config[$name])) {
+            return $this->config[$name];
+        }
+
+        return explode('|', $this->config[$name]);
+    }
+
+    /**
      * Renvoie les noms des testes à effectuer sur le champ
      *
      * @return array
      */
     public function getTests()
     {
-        if (!isset($this->config['test'])) {
-            return [];
-        }
+        return $this->getArrayConfOf('test');
+    }
 
-        if (is_array($this->config['test'])) {
-            return $this->config['test'];
-        }
-
-        return explode('|', $this->config['test']);
+    /**
+     * Renvoie les noms des nettoyages à faire sur le champ
+     *
+     * @return type
+     */
+    public function getSanitizes()
+    {
+        return $this->getArrayConfOf('sanitize');
     }
 }
