@@ -20,7 +20,7 @@ use Solire\Form\Process\VarBoolean as TestClass;
 class VarBoolean extends atoum
 {
     /**
-     * Contrôle ajout de dossiers dans l'include_path
+     * Contrôle si la variable est un boolean
      *
      * @return void
      */
@@ -46,6 +46,41 @@ class VarBoolean extends atoum
             ->boolean(TestClass::validate('a'))
                 ->isFalse()
             ->boolean(TestClass::validate(58962))
+                ->isFalse()
+        ;
+    }
+
+    /**
+     * Nettoyage pour obtenir un boolean
+     *
+     * @return void
+     */
+    public function testSanitize()
+    {
+        $this
+            ->boolean(TestClass::sanitize(true))
+                ->isTrue()
+            ->boolean(TestClass::sanitize(false))
+                ->isFalse()
+            ->boolean(TestClass::sanitize(1))
+                ->isTrue()
+            ->boolean(TestClass::sanitize(0))
+                ->isFalse()
+            ->boolean(TestClass::sanitize('1'))
+                ->isTrue()
+            ->boolean(TestClass::sanitize('0'))
+                ->isFalse()
+            ->boolean(TestClass::sanitize('true'))
+                ->isTrue()
+            ->boolean(TestClass::sanitize('false'))
+                ->isFalse()
+            ->boolean(TestClass::sanitize('on'))
+                ->isTrue()
+            ->boolean(TestClass::sanitize('off'))
+                ->isFalse()
+            ->boolean(TestClass::sanitize('a'))
+                ->isFalse()
+            ->boolean(TestClass::sanitize(58962))
                 ->isFalse()
         ;
     }
