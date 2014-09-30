@@ -24,7 +24,7 @@ class Formulaire extends atoum
     /**
      * Renvoie une configuration simple
      *
-     * @return \Slrfw\Formulaire\FastConfig
+     * @return Solire\Form\FastConfig
      */
     protected function getConfigTest()
     {
@@ -113,19 +113,23 @@ class Formulaire extends atoum
             })
                 ->hasMessage('Erreur saisie')
                 ->isInstanceOf('\Solire\Form\Exception')
-            ->if($conf->set('\Slrfw\Exception\User', 'nom', 'exception'))
+
+            ->mockGenerator
+                ->generate('\Exception', '\MyTest')
+            ->if($conf->set('\MyTest\Exception', 'nom', 'exception'))
             ->exception(function () use ($form) {
                 $form->run();
             })
                 ->hasMessage('Erreur saisie')
-                ->isInstanceOf('\Slrfw\Exception\User')
+                ->isInstanceOf('\MyTest\Exception')
             ->if($conf->kill('nom', 'exception'))
-            ->if($conf->set('\Slrfw\Exception\User', '__global', 'exception'))
+
+            ->if($conf->set('\Solire\Form\Exception\Mono', '__global', 'exception'))
             ->exception(function () use ($form) {
                 $form->run();
             })
                 ->hasMessage('Erreur saisie')
-                ->isInstanceOf('\Slrfw\Exception\User')
+                ->isInstanceOf('\Solire\Form\Exception\Mono')
         ;
     }
 
