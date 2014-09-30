@@ -30,7 +30,7 @@ class FastConfig extends \Slrfw\FastConfig implements ConfigInterface
 
     private $rules = [
         'test', 'obligatoire', 'erreur', 'renomme', 'designe', 'exception',
-        'force', 'egale'
+        'force', 'egale', 'sanitize'
     ];
 
     /**
