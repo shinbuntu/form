@@ -7,7 +7,7 @@
  * @license MIT http://mit-license.org/
  */
 
-namespace Solire\Form;
+namespace Solire\Form\Exception;
 
 /**
  * Enregistrement d'informations suplémentaires pour les exception envoyés par
@@ -16,7 +16,7 @@ namespace Solire\Form;
  * @author  Adrien <aimbert@solire.fr>
  * @license MIT http://mit-license.org/
  */
-trait ExceptionTrait
+trait MonoTrait
 {
     /**
      * Nom du champs à cibler
