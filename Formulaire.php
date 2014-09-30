@@ -179,7 +179,7 @@ class Formulaire
             | on retourne un message d'erreur si celle-ci est
             | obligatoire, sinon, on l'ignore simplement.
             `---------------------------------------- */
-            if (!$temp->tests($controls)) {
+            if (!$temp->run($controls)) {
                 $this->markError($champ, false);
 
                 continue;
