@@ -259,7 +259,8 @@ class Formulaire
             $error = new Exception($message);
         }
 
-        if (method_exists($error, 'setErrorInputName')) {
+        $traits = class_uses($error);
+        if (isset($traits['Solire\Form\Exception\MonoTrait'])) {
             $error->setErrorInputName($this->target);
         }
 
