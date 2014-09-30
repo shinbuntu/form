@@ -32,37 +32,55 @@ class Tester extends atoum
     }
 
     /**
-     * Contrôles sur la variable
+     * Contrôles & Nettoyages sur la variable
      *
      * @return void
      */
-    public function testTest()
+    public function testRun()
     {
         $this
             ->if($var = new TestClass('id'))
             ->string($var->get())
                 ->isEqualTo('id')
-            ->boolean($var->tests(['VarString', 'length:>=2']))
-                ->isTrue()
-            ->boolean($var->validate('VarString'))
+            ->boolean($var->run(['VarString', 'length:>=2']))
                 ->isTrue()
             ->exception(function () use ($var) {
-                $var->tests(52);
+                $var->run(42);
             })
-                ->hasMessage('$options doit être un tableau')
+                ->hasMessage('$tests doit être un tableau')
                 ->isInstanceOf('\Solire\Form\Exception')
-            ->boolean($var->tests(['\\Solire\\Form\\Process\\VarInt']))
+            ->boolean($var->run(['\\Solire\\Form\\Process\\VarInt']))
                 ->isFalse()
             ->exception(function () use ($var) {
-                $var->tests(['\\Solire\\Form\\Process\\PouetPouet']);
+                $var->run(['\\Solire\\Form\\Process\\PouetPouet']);
             })
-                ->hasMessage('Aucune classe de test pour __\Solire\Form\Process\PouetPouet__')
+                ->hasMessage('Aucune classe trouvée pour __\Solire\Form\Process\PouetPouet__')
                 ->isInstanceOf('\Solire\Form\Exception')
             ->exception(function () use ($var) {
-                $var->tests(['\\Solire\\Form\\Field']);
+                $var->run(['\\Solire\\Form\\Field']);
             })
                 ->hasMessage('_\Solire\Form\Field_ n\'implemente pas ValidateInterface')
                 ->isInstanceOf('\Solire\Form\Exception')
+
+            ->exception(function () use ($var) {
+                $var->run(['VarString', 'length:>=2'], 42);
+            })
+                ->hasMessage('$sanitizes doit être un tableau')
+                ->isInstanceOf('\Solire\Form\Exception')
+            ->exception(function () use ($var) {
+                $var->run(['VarString', 'length:>=2'], ['\\Solire\\Class\\Not\\Exist']);
+            })
+                ->hasMessage('Aucune classe trouvée pour __\Solire\Class\Not\Exist__')
+                ->isInstanceOf('\Solire\Form\Exception')
+            ->exception(function () use ($var) {
+                $var->run(['VarString', 'length:>=2'], ['\\Solire\\Form\\Field']);
+            })
+                ->hasMessage('_\Solire\Form\Field_ n\'implemente pas SanitizeInterface')
+                ->isInstanceOf('\Solire\Form\Exception')
+            ->boolean($var->run(['VarString', 'length:>=2'], ['\\Solire\\Form\\Process\\VarFloat']))
+                ->isTrue()
+            ->float($var->get())
+                ->isEqualTo(0.0)
         ;
     }
 
@@ -84,7 +102,25 @@ class Tester extends atoum
                 ->isEqualTo('sdf3.25d2')
             ->float($var->sanitize('VarFloat'))
                 ->isEqualTo(3.252)
+        ;
+    }
 
+    /**
+     * Contrôles sur la variable
+     *
+     * @return void
+     */
+    public function testValidate()
+    {
+        $this
+            ->if($var = new TestClass('3.252'))
+            ->string($var->get())
+                ->isEqualTo('3.252')
+            ->boolean($var->validate('VarFloat'))
+                ->isTrue()
+            ->if($var = new TestClass('sdf3.25d2'))
+            ->boolean($var->validate('VarFloat'))
+                ->isFalse()
         ;
     }
 }

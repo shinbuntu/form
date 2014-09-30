@@ -62,7 +62,7 @@ class Tester
             return $this->validateProcess($name, $tool);
         }
 
-        throw new Exception('Aucune classe de test pour __' . $name . '__');
+        throw new Exception('Aucune classe trouvée pour __' . $name . '__');
     }
 
     /**
@@ -77,7 +77,8 @@ class Tester
      */
     protected function validateProcess($className, $tool)
     {
-        if (!in_array(__NAMESPACE__ . '\\' . $tool . 'Interface', class_implements($className))) {
+        $interfaces = class_implements($className);
+        if (!isset($interfaces[__NAMESPACE__ . '\\' . $tool . 'Interface'])) {
             throw new Exception('_' . $className . '_ n\'implemente pas ' . $tool . 'Interface');
         }
 
@@ -125,27 +126,36 @@ class Tester
     {
         list($option, $param) = $this->extractOptions($option);
         $className = $this->getClassName($option, 'Sanitize');
-        return $className::sanitize($this->foo, $param);
+        $this->foo = $className::sanitize($this->foo, $param);
+        return $this->foo;
     }
 
     /**
      * Permet d'effectuer differents tests sur la variable
      *
-     * @param array $options Tableau de tests à effectuer
+     * @param array $tests     Tableau de tests à effectuer
+     * @param array $sanitizes Tableau de nettoyages à effectuer
      *
      * @return boolean
      */
-    public function tests($options)
+    public function run($tests, $sanitizes = [])
     {
-        if (!is_array($options)) {
-            throw new Exception('$options doit être un tableau');
+        if (!is_array($tests)) {
+            throw new Exception('$tests doit être un tableau');
         }
 
-        foreach ($options as $option) {
+        foreach ($tests as $option) {
             if ($this->validate($option) === true) {
                 continue;
             }
             return false;
+        }
+
+        if (!is_array($sanitizes)) {
+            throw new Exception('$sanitizes doit être un tableau');
+        }
+        foreach ($sanitizes as $option) {
+            $this->sanitize($option);
         }
 
         return true;
