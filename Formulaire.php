@@ -173,13 +173,11 @@ class Formulaire
                 continue;
             }
 
-            $controls = $champ->getTests();
-
             /* = Si la variable ne passe pas les testes
             | on retourne un message d'erreur si celle-ci est
             | obligatoire, sinon, on l'ignore simplement.
             `---------------------------------------- */
-            if (!$temp->run($controls)) {
+            if (!$temp->run($champ->getTests(), $champ->getSanitizes())) {
                 $this->markError($champ, false);
 
                 continue;
