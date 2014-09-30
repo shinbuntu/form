@@ -9,6 +9,7 @@
 namespace Solire\Form\Process;
 
 use Solire\Form\ValidateInterface;
+use Solire\Form\SanitizeInterface;
 
 /**
  * Contrôle de variables
@@ -16,7 +17,7 @@ use Solire\Form\ValidateInterface;
  * @author  Adrien <aimbert@solire.fr>
  * @license MIT http://mit-license.org/
  */
-class VarInt implements ValidateInterface
+class VarInt implements ValidateInterface, SanitizeInterface
 {
     /**
      * Test si le parametre est un entier
@@ -59,5 +60,21 @@ class VarInt implements ValidateInterface
         }
 
         return false;
+    }
+
+    /**
+     * Nettoie la variable pour avoir un int
+     *
+     * @param mixed $data  Valeur à Nettoyer
+     * @param mixed $param Non utilisé
+     *
+     * @return int
+     */
+    public static function sanitize($data, $param = null)
+    {
+        return (int) filter_var(
+            $data,
+            FILTER_SANITIZE_NUMBER_INT
+        );
     }
 }

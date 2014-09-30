@@ -76,4 +76,25 @@ class VarInt extends atoum
                 ->isFalse()
         ;
     }
+
+    /**
+     * Contrôle traitements de valeurs simple
+     *
+     * @return void
+     */
+    public function testSanitize()
+    {
+        $this
+            ->integer(TestClass::sanitize(5))
+                ->isEqualTo(5)
+            ->integer(TestClass::sanitize('5'))
+                ->isEqualTo(5)
+            ->integer(TestClass::sanitize('-5365'))
+                ->isEqualTo(-5365)
+            ->integer(TestClass::sanitize('a5365'))
+                ->isEqualTo(5365)
+            ->integer(TestClass::sanitize(5365.0000000))
+                ->isEqualTo(5365)
+        ;
+    }
 }
