@@ -8,7 +8,7 @@
 
 namespace Solire\Form;
 
-use Slrfw\ConfigInterface;
+use Solire\Conf\ConfigInterface;
 
 /**
  * Gestionnaire des fichiers de configurations
@@ -16,7 +16,7 @@ use Slrfw\ConfigInterface;
  * @author  Adrien <aimbert@solire.fr>
  * @license MIT http://mit-license.org/
  */
-class FastConfig extends \Slrfw\FastConfig implements ConfigInterface
+class FastConfig extends \Solire\Conf\Conf implements ConfigInterface
 {
     /**
      * Configuration par défaut d'une valeur
@@ -33,6 +33,8 @@ class FastConfig extends \Slrfw\FastConfig implements ConfigInterface
         'force', 'egale', 'sanitize'
     ];
 
+    private $varName;
+
     /**
      * Ajoute un champ dans la configuration du formulaire
      *
@@ -42,8 +44,13 @@ class FastConfig extends \Slrfw\FastConfig implements ConfigInterface
      */
     public function create($varName)
     {
-        $this->varName = (string) $varName;
-        $this->config[(string) $varName] = $this->default;
+        $elmt = new self();
+        $elmt
+            ->set('', 'test')
+            ->set(false, 'obligatoire')
+        ;
+        $this->set($elmt, $varName);
+        $this->varName = $varName;
 
         return $this;
     }
@@ -63,7 +70,7 @@ class FastConfig extends \Slrfw\FastConfig implements ConfigInterface
             throw new Exception($ruleName . ' n\'est pas une règle formulaire');
         }
 
-        $this->config[$this->varName][$ruleName] = $value;
+        $this->set($value, $this->varName, $ruleName);
 
         return $this;
     }

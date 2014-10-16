@@ -25,7 +25,7 @@ $report->addField(new atoum\report\fields\runner\result\logo());
 if (!is_dir(__DIR__ . '/coverage')) {
     mkdir(__DIR__ . '/coverage');
 }
-$coverageField = new atoum\report\fields\runner\coverage\html('Slrfw', __DIR__ . '/coverage');
+$coverageField = new atoum\report\fields\runner\coverage\html('Form', __DIR__ . '/coverage');
 
 // Please replace in next line http://url/of/web/site by the root url of your code coverage web site.
 //$coverageField->setRootUrl('http://url/of/web/site');

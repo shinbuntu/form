@@ -46,5 +46,5 @@ vendor/
 
 # atoum #
 #########
-tests/units/coverage/
-tests/units/tmp
+Tests/Units/coverage/
+Tests/Units/tmp

@@ -77,11 +77,11 @@ class Formulaire
     /**
      * Charge un nouveau formulaire
      *
-     * @param Slrfw\ConfigInterface $config Configuration du Formulaire
+     * @param object $config Configuration du Formulaire
      */
     public function __construct($config)
     {
-        if (!is_object($config) || !in_array('Slrfw\ConfigInterface', class_implements($config))) {
+        if (!is_object($config) || !in_array('Solire\Conf\ConfigInterface', class_implements($config))) {
             throw new Exception('Configuration non valide');
         }
 
@@ -155,16 +155,20 @@ class Formulaire
     public function run()
     {
         $this->fullData = $this->catchData();
-        $configuration = $this->config->getAll();
-
-        unset($configuration[self::CONFIG]);
-
-        /* = On utilise cette formulation plutot que foreach parce que
-         * $configuration peut évoluer dans la boucle. (et que dans un foreach
-         * cela n'est pas pris en compte)
-          ------------------------------- */
-        reset($configuration);
-        while (list($name, $regles) = each($configuration)) {
+//        $configuration = $this->config->getAll();
+//
+//        unset($configuration[self::CONFIG]);
+//
+//        /* = On utilise cette formulation plutot que foreach parce que
+//         * $configuration peut évoluer dans la boucle. (et que dans un foreach
+//         * cela n'est pas pris en compte)
+//          ------------------------------- */
+//        reset($configuration);
+//        while (list($name, $regles) = $this->config->each()) {
+        foreach ($this->config->each() as $name => $regles) {
+            if ($name === self::CONFIG) {
+                continue;
+            }
             $champ = $this->loadField($name, $regles);
 
             try {
