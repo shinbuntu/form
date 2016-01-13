@@ -3,8 +3,9 @@
   "type": "library",
   "license": "CC by-nc",
   "require-dev": {
-    "m6web/coke": "~1.2",
-    "siwayll/phpcs-norme-dpsi": "3.*"
+    "m6web/coke": "~2.1",
+    "siwayll/phpcs-norme-dpsi": "~3.2",
+    "atoum/atoum": "^2.5"
   },
   "require": {
     "php": ">=5.6.0",
