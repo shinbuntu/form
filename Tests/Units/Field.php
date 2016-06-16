@@ -29,6 +29,7 @@ class Field extends atoum
         $foo = new TestClass('id');
         $foo
             ->setRule('test', 'VarInt|notEmpty')
+            ->setRule('egal', 'testfield1|testfield2|testfield_5')
             ->setRule('obligatoire', true)
             ->setRule('designe', 'id-table')
         ;
@@ -71,7 +72,7 @@ class Field extends atoum
                 ->isIdenticalTo($conf)
             ->object($conf->setRule('force', true))
                 ->isIdenticalTo($conf)
-            ->object($conf->setRule('egale', true))
+            ->object($conf->setRule('egal', true))
                 ->isIdenticalTo($conf)
             ->exception(function () use ($conf) {
                 $conf->setRule('maRègleFoireuse', -1);
@@ -135,6 +136,26 @@ class Field extends atoum
             ->if($field->rmRule('obligatoire'))
             ->boolean($field->isRequired())
                 ->isFalse()
+        ;
+    }
+
+    /**
+     * Contrôle de la liste des tests d'egalité
+     *
+     * @return void
+     */
+    public function testGetEgals()
+    {
+        $this
+            ->if($field = $this->getFieldTest())
+            ->array($field->getEgals())
+            ->isEqualTo(['testfield1', 'testfield2', 'testfield_5'])
+            ->if($field->setRule('egal', ['testfield6', 'testfield7']))
+            ->array($field->getEgals())
+            ->isEqualTo(['testfield6', 'testfield7'])
+            ->if($field->rmRule('egal'))
+            ->array($field->getEgals())
+            ->isEqualTo([])
         ;
     }
 

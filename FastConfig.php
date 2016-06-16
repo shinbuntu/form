@@ -30,7 +30,7 @@ class FastConfig extends \Solire\Conf\Conf implements ConfigInterface
 
     private $rules = [
         'test', 'obligatoire', 'erreur', 'renomme', 'designe', 'exception',
-        'force', 'egale', 'sanitize'
+        'force', 'egal', 'sanitize'
     ];
 
     private $varName;

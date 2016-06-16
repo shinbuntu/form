@@ -63,7 +63,7 @@ class FastConfig extends AtoumConf
                 ->isIdenticalTo($conf)
             ->object($conf->setRule('force', true))
                 ->isIdenticalTo($conf)
-            ->object($conf->setRule('egale', true))
+            ->object($conf->setRule('egal', true))
                 ->isIdenticalTo($conf)
             ->exception(function () use ($conf) {
                 $conf->setRule('maRègleFoireuse', -1);

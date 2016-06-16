@@ -22,7 +22,7 @@ class Field
     private $rules = [
         'test', 'obligatoire', 'erreur', 'renomme', 'designe', 'exception',
         'sanitize',
-        'force', 'egale'
+        'force', 'egal'
     ];
 
     /**
@@ -209,5 +209,15 @@ class Field
     public function getSanitizes()
     {
         return $this->getArrayConfOf('sanitize');
+    }
+
+    /**
+     * Renvoie les noms des testes d'égalité à effectuer sur le champ
+     *
+     * @return array
+     */
+    public function getEgals()
+    {
+        return $this->getArrayConfOf('egal');
     }
 }
