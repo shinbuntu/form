@@ -201,13 +201,17 @@ class Formulaire
 //                unset($champs, $champ);
 //            }
 //
-//            /* = Contrôle d'egalité du champ
-//              ------------------------------- */
-//            if (isset($regles['egal'])) {
-//                if ($this->_data[$name] != $this->_data[$regles['egal']]) {
-//                    $this->throwError($regles);
-//                }
-//            }
+            /* = Contrôle d'egalité du champ
+              ------------------------------- */
+            $eqals = $champ->getEgals();
+            if ($eqals) {
+                foreach ($eqals as $egalChamp) {
+                    if ($this->data[$name] != $this->data[$egalChamp]) {
+                        $this->markError($champ, false);
+                    }
+                }
+            }
+            unset($eqals);
         }
 
 //        if (!empty($this->plugins)) {
