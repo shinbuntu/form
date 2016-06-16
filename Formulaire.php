@@ -203,15 +203,15 @@ class Formulaire
 //
             /* = Contrôle d'egalité du champ
               ------------------------------- */
-            if ($champ->getEgals()) {
-                $egalChamps = explode('|', $champ->getEgals());
-                foreach ($egalChamps as $egalChamp) {
+            $eqals = $champ->getEgals();
+            if ($eqals) {
+                foreach ($eqals as $egalChamp) {
                     if ($this->data[$name] != $this->data[$egalChamp]) {
                         $this->markError($champ, false);
                     }
                 }
-                unset($champs, $champ);
             }
+            unset($eqals);
         }
 
 //        if (!empty($this->plugins)) {
